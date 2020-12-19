@@ -5,7 +5,6 @@ import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,8 +49,9 @@ public class RSS {
     }
 
     public Channel read(URI uri) throws ParserConfigurationException, SAXException, IOException {
-        Document doc = XMLIO.readXML(uri);
-        return read(doc);
+        Channel ch = new Channel();
+        read(ch, uri);
+        return ch;
     }
     
     public void read(Channel ch, URI uri) throws ParserConfigurationException, SAXException, IOException {
@@ -60,7 +60,7 @@ public class RSS {
     }
     
     // ABNFで検証する?
-    static Date parseDate(XElement xdate) {
+    public static Date parseDate(XElement xdate) {
         if ( xdate != null ) {
             String txt = xdate.getTextContent();
             for ( SimpleDateFormat df : dateFormats ) {
@@ -99,8 +99,7 @@ public class RSS {
                 throw new UnsupportedOperationException();
             }
         } else if (xdoc.getName().equals("feed")){
-            Feed feed = new Atom().read(doc);
-            throw new UnsupportedOperationException();
+            new Atom().read(ch, doc);
         } else {
             throw new UnsupportedOperationException();
         }
