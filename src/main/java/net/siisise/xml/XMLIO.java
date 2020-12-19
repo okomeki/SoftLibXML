@@ -36,15 +36,19 @@ public class XMLIO {
     }
 
     public static Document readXML(URI uri) throws ParserConfigurationException, SAXException, IOException {
-        //URLConnection con = uri.toURL().openConnection();
-        //con.setRequestProperty("Accept", "*/*");
-        //InputStream in = (InputStream)con.getContent();
-        //byte[] data = FileIO.binRead(in);
+//        URLConnection con = uri.toURL().openConnection();
+//        con.setRequestProperty("Accept", "*/*");
+//        InputStream in = (InputStream)con.getContent();
+//        byte[] data = FileIO.binRead(in);
+//        System.out.println(new String(data,"utf-8"));
+//        PacketA pac = new PacketA();
+//        pac.write(data);
+        
         //Document doc = (Document) con.getContent(new Class[] { Document.class });
-        //Document doc = readXML(in);
-        //in.close();
-        //System.out.println(new String(data,"utf-8"));
-        //return doc;
+//        Document doc = readXML(new java.io.ByteArrayInputStream(data));
+//        in.close();
+//        System.out.println(new String(data,"utf-8"));
+//        return doc;
         DocumentBuilder db = documentBuilder();
         return db.parse(uri.toString());
     }

@@ -1,6 +1,7 @@
 package net.siisise.rss;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class RSS10 extends RSS {
     static final String RSS = "http://purl.org/rss/1.0/";
     static final String DC = "http://purl.org/dc/elements/1.1/";
 //    static final String CONTENT = "http://purl.org/rss/1.0/modules/content/";
-//    static final String SYN = "http://purl.org/rss/1.0/modules/syndication/";
+    static final String SYN = "http://purl.org/rss/1.0/modules/syndication/";
 
     public RSS10() {
 
@@ -30,6 +31,12 @@ public class RSS10 extends RSS {
     @Override
     Channel read(Document doc) {
         Channel ch = new Channel();
+        read(ch, doc);
+        
+        return ch;
+    }
+    
+    void read(Channel ch, Document doc) {
         RDF rdf = new RDF(doc);
         XElement xch = rdf.getTags("channel").get(0);
         // てきとーにMap化
@@ -42,21 +49,45 @@ public class RSS10 extends RSS {
         System.out.println(ch.title);
         // dc:date ないこともある
         ch.pubDate = parseDate(xch.getTag(DC, "date"));
-
-        ch.items = new ArrayList<>();
+        if ( ch.pubDate == null ) {
+            ch.pubDate = new Date();
+        }
+        
+        ch.updateBase = parseDate(xch.getTag(SYN,"updateBase"));
+        XElement xbase = xch.getTag(SYN,"updatePeriod");
+        XElement xtime = xch.getTag(SYN,"updateFrequency");
+        if ( xbase != null && xtime != null ) {
+            int time = Integer.parseInt(xtime.getTextContent().trim());
+            String bx = xbase.getTextContent().toLowerCase().trim();
+            if ( bx.equals("hourly") ) {
+                ch.ttl = 60 / time;
+            } else if ( bx.equals("weekly") ) {
+                ch.ttl = 7 * 60 * 24 / time;
+            } else if ( bx.equals("monthly") ) {
+                ch.ttl = 30 * 60 * 24 / time;
+            } else if ( bx.equals("yearly") ) {
+                ch.ttl = 360 * 60 * 24 / time;
+//            } else if ( bx.equals("daily") ) {
+            } else {
+                ch.ttl = 60 * 24 / time;
+            }
+        }
 
         XElement seq = xch.getTag("items").getTag(RDF.RDF, "Seq");
         List<XElement> itemrefs = seq.getElements(RDF.RDF, "li");
+        List<Item> newItems = new ArrayList<>();
         for (XElement n : itemrefs) {
             String key = n.getAttribute(RDF.RDF, "resource"); // 直接itemの場合もあるかもしれない
             XElement xitem = rdf.get(key);
             Item item = toItem(xitem);
-            ch.items.add(item);
+            if ( item.pubDate == null ) {
+                item.pubDate = ch.pubDate;
+            }
+            newItems.add(item);
         }
-
-        return ch;
+        merge(ch.items, newItems);
     }
-
+    
     Item toItem(XElement xml) {
         Item item = new Item();
         item.map = map(xml.getElements());

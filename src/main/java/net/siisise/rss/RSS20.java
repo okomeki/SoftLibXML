@@ -1,6 +1,7 @@
 package net.siisise.rss;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.siisise.xml.XElement;
 import net.siisise.xml.XNode;
@@ -20,7 +21,11 @@ public class RSS20 extends RSS {
     @Override
     Channel read(Document doc) {
         Channel ch = new Channel();
-
+        read(ch, doc);
+        return ch;
+    }
+    
+    void read(Channel ch, Document doc) {
         Element node = doc.getDocumentElement();
         XElement xrss = (XElement) XNode.toObj(node);
 
@@ -28,13 +33,23 @@ public class RSS20 extends RSS {
         ch.title = xchannel.getTag("title").getTextContent();
         ch.link = xchannel.getTag("link").getTextContent().trim();
         ch.pubDate = parseDate(xchannel.getTag("pubDate"));
-        List<XElement> xitems = xchannel.getElementsByTagName("item");
-        ch.items = new ArrayList();
+        if ( ch.pubDate == null ) {
+            ch.pubDate = new Date();
+        }
+        XElement xttl = xchannel.getTag("ttl");
+        if ( xttl != null ) {
+            ch.ttl = Integer.parseInt(xttl.getTextContent().trim());
+        }
+        List<XElement> xitems = xchannel.getElements("item");
+        List<Item> newItems = new ArrayList<>();
         for (XElement xitem : xitems) {
             Item item = toItem(xitem);
-            ch.items.add(item);
+            if ( item.pubDate == null ) {
+                item.pubDate = ch.pubDate;
+            }
+            newItems.add(item);
         }
-        return ch;
+        merge(ch.items, newItems);
     }
 
     Item toItem(XElement xitem) {
