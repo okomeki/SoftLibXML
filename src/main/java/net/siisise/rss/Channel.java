@@ -16,6 +16,8 @@ public class Channel {
     public String link;
     public String description;
     public Date updateBase;
+
+    public Date checkDate;
     
     // 2.0
     public Date pubDate;

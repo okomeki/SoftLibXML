@@ -59,7 +59,7 @@ public class Atom {
         } else { // YouTube
             XElement group = entry.getTag(MEDIA,"group");
             XElement description = group.getTag(MEDIA,"description");
-            item.description = description.getTextContent();
+            item.description = "<pre>" + description.getTextContent() + "</pre>";
         }
         item.link = entry.getTag("link").getAttribute("href");
         return item;
