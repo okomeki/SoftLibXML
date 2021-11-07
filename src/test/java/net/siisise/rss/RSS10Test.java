@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -20,7 +18,7 @@ public class RSS10Test {
         "https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf",
         "https://www.soumu.go.jp/news.rdf", // 総務省
         "https://www.mhlw.go.jp/stf/news.rdf", // 厚生労働省
-        "https://www.fsa.go.jp/fsaNewsListAll_rss2.xml",
+//        "https://www.fsa.go.jp/fsaNewsListAll_rss2.xml",
         "https://www.caa.go.jp/news.rss", // 消費者庁
         "https://ascii.jp/rss.xml",
         "https://ascii.jp/digital/rss.xml",

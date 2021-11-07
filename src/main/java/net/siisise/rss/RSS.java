@@ -107,6 +107,12 @@ public class RSS {
         merge(items, newItems, max);
     }
 
+    /**
+     * 
+     * @param items
+     * @param newItems
+     * @param max 
+     */
     public void merge(List<Item> items, List<Item> newItems, int max) {
         int len = newItems.size();
         synchronized (items) {
