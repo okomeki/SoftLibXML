@@ -17,7 +17,6 @@ public class Item {
 
     /**
      * だいたい同じ判定
-     * @param o
      * @return 
      */
     @Override

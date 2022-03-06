@@ -31,6 +31,12 @@ public class XElement extends XNode<Element> {
         return val.getAttribute(name);
     }
 
+    /**
+     * attributeのget
+     * @param ns namespace
+     * @param name attribute name
+     * @return attrubute
+     */
     public String getAttribute(String ns, String name) {
         return val.getAttributeNS(ns, name);
     }
@@ -87,7 +93,7 @@ public class XElement extends XNode<Element> {
     /**
      * Documentでnamespaceが有効になっていること
      *
-     * @param ns
+     * @param ns name space
      * @param name
      * @return
      */
@@ -95,6 +101,12 @@ public class XElement extends XNode<Element> {
         return elementStream().filter(e -> e.equals(ns, name)).findFirst().orElse(null);
     }
 
+    /**
+     * 名前の一致だけ確認する.
+     * @param ns name space
+     * @param name
+     * @return 
+     */
     boolean equals(String ns, String name) {
         return getNamespaceURI().equals(ns) && getLocalName().equals(name);
     }

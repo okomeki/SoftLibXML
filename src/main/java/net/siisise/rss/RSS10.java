@@ -36,6 +36,7 @@ public class RSS10 extends RSS {
         return ch;
     }
     
+    @Override
     void read(Channel ch, Document doc) {
         RDF rdf = new RDF(doc);
         XElement xch = rdf.getTags("channel").get(0);
@@ -46,7 +47,7 @@ public class RSS10 extends RSS {
         ch.title = (String) ch.map.get("title");
         ch.link = ((String) ch.map.get("link")).trim();
         ch.description = (String) ch.map.get("description");
-        System.out.println(ch.title);
+        //System.out.println(ch.title);
         // dc:date ないこともある
         ch.pubDate = parseDate(xch.getTag(DC, "date"));
         if ( ch.pubDate == null ) {

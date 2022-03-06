@@ -25,6 +25,7 @@ public class RSS20 extends RSS {
         return ch;
     }
     
+    @Override
     void read(Channel ch, Document doc) {
         Element node = doc.getDocumentElement();
         XElement xrss = (XElement) XNode.toObj(node);

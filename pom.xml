@@ -3,25 +3,46 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.siisise</groupId>
     <artifactId>softlib-xml</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>SoftLibXML</name>
+    <description>XML wrap</description>
+    <url>https://github.com/okomeki/SoftLib</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/license/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>SATO Masatoshi</name>
+            <email>okome@siisise.net</email>
+            <organization>Siisise Net</organization>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/okomeki/SoftLibXML.git</connection>
+        <developerConnection>scm:git:ssh://github.com/okomeki/SoftLibXML.git</developerConnection>
+        <url>https://github.com/okomeki/SoftLibXML/tree/master</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

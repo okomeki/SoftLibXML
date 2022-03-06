@@ -5,7 +5,6 @@ import java.util.Date;
 
 /**
  *
- * @author okome
  */
 public class ChannelReader {
     URI uri;

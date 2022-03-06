@@ -13,7 +13,6 @@ import org.xml.sax.SAXException;
 
 /**
  * FileIOから分離する
- * @author okome
  */
 public class XMLIO {
     

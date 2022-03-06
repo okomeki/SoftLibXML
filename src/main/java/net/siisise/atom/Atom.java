@@ -12,16 +12,10 @@ import org.w3c.dom.Document;
 
 /**
  * The Atom Syndication Format と The Atom Publishing Protocol の2種類あるらしい。 
- * @author okome
  */
 public class Atom {
     
     static final String MEDIA = "http://search.yahoo.com/mrss/";
-    
-    public Feed read(Document doc) {
-        
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * Atom を RSS に読み替える

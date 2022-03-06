@@ -108,7 +108,7 @@ public class RSS {
     }
 
     /**
-     * 
+     * 複数要素を混ぜるとべんりかなと
      * @param items
      * @param newItems
      * @param max 
