@@ -14,6 +14,7 @@ public class Item {
     public Date lastBuildDate;
     public String description;
     public Map<String,Object> map;
+    public Channel ch;
 
     /**
      * だいたい同じ判定

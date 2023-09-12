@@ -85,8 +85,8 @@ public class XNode<N extends Node> {
         for ( int i = 0; i < len; i++ ) {
             Node attr = nm.item(i);
             String name = attr.getNodeName();
-            String val = attr.getNodeValue();
-            map.put(name, val);
+            String value = attr.getNodeValue();
+            map.put(name, value);
         }
         return map;
     }
@@ -100,8 +100,8 @@ public class XNode<N extends Node> {
             String uri = attr.getNamespaceURI();
             if (ns.equals(uri)) {
                 String name = attr.getNodeName();
-                String val = attr.getNodeValue();
-                map.put(name, val);
+                String value = attr.getNodeValue();
+                map.put(name, value);
             }
         }
         return map;

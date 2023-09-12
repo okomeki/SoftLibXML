@@ -29,14 +29,6 @@ public class RSS10 extends RSS {
     }
 
     @Override
-    Channel read(Document doc) {
-        Channel ch = new Channel();
-        read(ch, doc);
-        
-        return ch;
-    }
-    
-    @Override
     void read(Channel ch, Document doc) {
         RDF rdf = new RDF(doc);
         XElement xch = rdf.getTags("channel").get(0);
@@ -81,6 +73,7 @@ public class RSS10 extends RSS {
             String key = n.getAttribute(RDF.RDF, "resource"); // 直接itemの場合もあるかもしれない
             XElement xitem = rdf.get(key);
             Item item = toItem(xitem);
+            item.ch = ch;
             if ( item.pubDate == null ) {
                 item.pubDate = ch.pubDate;
             }

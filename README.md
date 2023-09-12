@@ -13,7 +13,7 @@ Maven 系
 <dependency>
   <groupId>net.siissie</groupId>
   <artifactId>softlib-xml</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
 </dependency>
 ~~~
 を dependencies に加えます。

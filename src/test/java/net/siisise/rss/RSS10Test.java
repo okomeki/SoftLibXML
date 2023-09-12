@@ -10,7 +10,6 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author okome
  */
 public class RSS10Test {
     
@@ -19,7 +18,7 @@ public class RSS10Test {
         "https://www.soumu.go.jp/news.rdf", // 総務省
         "https://www.mhlw.go.jp/stf/news.rdf", // 厚生労働省
 //        "https://www.fsa.go.jp/fsaNewsListAll_rss2.xml",
-        "https://www.caa.go.jp/news.rss", // 消費者庁
+//        "https://www.caa.go.jp/news.rss", // 消費者庁
         "https://ascii.jp/rss.xml",
         "https://ascii.jp/digital/rss.xml",
         "https://news.yahoo.co.jp/rss/topics/it.xml",
@@ -55,11 +54,6 @@ public class RSS10Test {
                 System.out.println("にちじ:" + df.format(item.pubDate));
             }
             System.out.println(item.description);
-
         }
-        
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
-    
 }

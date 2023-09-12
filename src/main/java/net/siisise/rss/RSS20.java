@@ -11,20 +11,12 @@ import org.w3c.dom.Element;
 /**
  * https://cyber.harvard.edu/rss/rss.html
  *
- * @author okome
  */
 public class RSS20 extends RSS {
 
     public RSS20() {
     }
 
-    @Override
-    Channel read(Document doc) {
-        Channel ch = new Channel();
-        read(ch, doc);
-        return ch;
-    }
-    
     @Override
     void read(Channel ch, Document doc) {
         Element node = doc.getDocumentElement();
@@ -45,6 +37,7 @@ public class RSS20 extends RSS {
         List<Item> newItems = new ArrayList<>();
         for (XElement xitem : xitems) {
             Item item = toItem(xitem);
+            item.ch = ch;
             if ( item.pubDate == null ) {
                 item.pubDate = ch.pubDate;
             }

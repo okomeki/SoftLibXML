@@ -47,9 +47,8 @@ public class RSS {
     }
 
     public Channel read(URI uri) throws ParserConfigurationException, SAXException, IOException {
-        Channel ch = new Channel();
-        read(ch, uri);
-        return ch;
+        Document doc = XMLIO.readXML(uri);
+        return read(doc);
     }
 
     public void read(Channel ch, URI uri) throws ParserConfigurationException, SAXException, IOException {

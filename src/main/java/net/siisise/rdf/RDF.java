@@ -8,10 +8,9 @@ import org.w3c.dom.Document;
 
 /**
  * RSS 1.0の基にするだけ
- * @author okome
  */
 public class RDF {
-    XElement top;
+    private final XElement top;
     
     public static final String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     
