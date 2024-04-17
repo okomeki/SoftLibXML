@@ -71,6 +71,11 @@ public class RSS {
         return null;
     }
 
+    /**
+     * 
+     * @param doc RSS /Atom
+     * @return 
+     */
     Channel read(Document doc) {
         Channel ch = new Channel();
         read(ch, doc);
@@ -80,22 +85,23 @@ public class RSS {
     /**
      *
      * @param ch item
-     * @param doc
+     * @param doc RSS / Atom
      */
     void read(Channel ch, Document doc) {
         Element ele = doc.getDocumentElement();
         XElement xdoc = (XElement) XNode.toObj(ele);
-        if (xdoc.getName().equals("rdf:RDF")) {
+        String name = xdoc.getName();
+        if (name.equals("rdf:RDF")) {
             // RDF 形式 (RSS 1.0など)
             new RSS10().read(ch, doc);
-        } else if (xdoc.getName().equals("rss") && xdoc.hasAttribute("version")) {
+        } else if (name.equals("rss") && xdoc.hasAttribute("version")) {
             String ver = xdoc.getAttribute("version");
             if ("2.0".equals(ver)) {
                 new RSS20().read(ch, doc);
             } else {
                 throw new UnsupportedOperationException();
             }
-        } else if (xdoc.getName().equals("feed")) {
+        } else if (name.equals("feed")) {
             new Atom().read(ch, doc);
         } else {
             throw new UnsupportedOperationException();

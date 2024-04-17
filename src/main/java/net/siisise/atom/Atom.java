@@ -25,7 +25,10 @@ public class Atom {
     public void read(Channel ch, Document doc) {
         XElement xfeed = (XElement) XNode.toObj(doc.getDocumentElement());
         ch.title = xfeed.getTag("title").getTextContent();
-        System.out.println(ch.title);
+        XElement link = xfeed.getElements("link").stream().filter(x -> x.getAttribute("rel").equals("alternate")).findFirst().orElse(null);
+        if ( link != null ) {
+            ch.link = link.getAttribute("href");
+        }
         ch.lastBuildDate = RSS.parseDate(xfeed.getTag("updated"));
         ch.pubDate = RSS.parseDate(xfeed.getTag("published"));
         if ( ch.pubDate == null ) {
@@ -34,13 +37,20 @@ public class Atom {
         List<XElement> entries = xfeed.getElements("entry");
         List<Item> items = new ArrayList<>();
         for ( XElement entry : entries ) {
-            items.add(toItem(entry));
+            items.add(toItem(entry, ch));
         }
         new RSS().merge(ch.items, items);
     }
-    
-    Item toItem(XElement entry) {
+
+    /**
+     * 
+     * @param entry
+     * @param ch
+     * @return 
+     */
+    Item toItem(XElement entry, Channel ch) {
         Item item = new Item();
+        item.ch = ch;
         item.lastBuildDate = RSS.parseDate(entry.getTag("updated"));
         item.pubDate = RSS.parseDate(entry.getTag("published"));
         if ( item.pubDate == null ) {
