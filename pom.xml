@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.siisise</groupId>
-    <artifactId>softlib-xml</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <artifactId>softlib-xml.module</artifactId>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>SoftLibXML</name>
     <description>XML wrap</description>
@@ -116,12 +116,19 @@
         <repository>
             <id>github</id>
             <name>GitHub okomeki Apache Maven SoftLibXML Packages</name>
-            <url>https://maven.pkg.github.com/okomeki/softlibxml</url>
+            <layout>default</layout>
+            <url>https://maven.pkg.github.com/okomeki/softlib</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 </project>
