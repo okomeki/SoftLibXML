@@ -16,6 +16,8 @@ import org.w3c.dom.Document;
  * Really Simple Syndication ?
  *
  * XML DocumentBuilderFactoryで namespace必須。
+ * 
+ * channel と item のRDFを持つ 
  */
 public class RSS10 extends RSS {
 
@@ -39,7 +41,6 @@ public class RSS10 extends RSS {
         ch.title = (String) ch.map.get("title");
         ch.link = ((String) ch.map.get("link")).trim();
         ch.description = (String) ch.map.get("description");
-        //System.out.println(ch.title);
         // dc:date ないこともある
         ch.pubDate = parseDate(xch.getTag(DC, "date"));
         if ( ch.pubDate == null ) {
@@ -92,6 +93,11 @@ public class RSS10 extends RSS {
         return item;
     }
 
+    /**
+     * XML要素をMapに
+     * @param eles
+     * @return 
+     */
     static Map<String, Object> map(List<XElement> eles) {
         Map map = new HashMap();
         for (XElement ele : eles) {

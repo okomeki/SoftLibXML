@@ -24,8 +24,8 @@ public class RSS10Test {
         "https://news.yahoo.co.jp/rss/topics/it.xml",
         "https://news.mynavi.jp/rss/digital/kaden/audio",
         "https://rss.itmedia.co.jp/rss/2.0/itmedia_all.xml",
-        "https://www.gizmodo.jp/index.xml",
-        "https://srad.jp/sradjp.rss"
+        "https://www.gizmodo.jp/index.xml"
+//        "https://srad.jp/sradjp.rss"
 // 読めない 2020-12-18
 //        "https://www.e-gov.go.jp/news/news.xml",
 //        "https://developer.e-gov.go.jp/contents/news/news.xml"

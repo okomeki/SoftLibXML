@@ -1,6 +1,7 @@
 package net.siisise.xml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -8,6 +9,11 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -55,5 +61,27 @@ public class XMLIO {
     public static Document readXML(URL url) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilder db = documentBuilder();
         return db.parse(url.toString());
+    }
+
+    /**
+     * 
+     * @param doc
+     * @param file
+     * @throws javax.xml.transform.TransformerException
+     */
+    public void writeXML(Document doc, File file) throws TransformerException {
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(file);
+        TrXML.transform(source, result);
+    }
+
+    public void writeXML(Document doc, File file, String encode) throws FileNotFoundException, TransformerException {
+        Transformer tr = TrXML.newTransformer();
+        if ( encode != null ) {
+            tr.setParameter(OutputKeys.ENCODING, encode);
+        }
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(file);
+        tr.transform(source, result);
     }
 }

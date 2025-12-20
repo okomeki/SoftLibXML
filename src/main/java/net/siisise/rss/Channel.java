@@ -9,10 +9,11 @@ import java.util.Map;
  * RSS の だいたいこんな感じのチャンネル
  */
 public class Channel {
-    // id
+    // id / RSS URL
     public String about;
 
     public String title;
+    // Web link
     public String link;
     public String description;
     public Date updateBase;

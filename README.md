@@ -22,8 +22,8 @@ module対応版 (JDK11)
 <dependency>
   <groupId>net.siissie</groupId>
   <artifactId>softlib-xml.module</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ~~~
 を dependencies に加えます。
-次版は1.0.3-SNAPSHOT
+次版は1.0.4-SNAPSHOT

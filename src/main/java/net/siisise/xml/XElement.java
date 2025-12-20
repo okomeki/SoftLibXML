@@ -33,6 +33,7 @@ public class XElement extends XNode<Element> {
 
     /**
      * attributeのget
+     *
      * @param ns namespace
      * @param name attribute name
      * @return attrubute
@@ -103,12 +104,20 @@ public class XElement extends XNode<Element> {
 
     /**
      * 名前の一致だけ確認する.
+     *
      * @param ns name space
      * @param name
-     * @return 
+     * @return
      */
     boolean equals(String ns, String name) {
         return getNamespaceURI().equals(ns) && getLocalName().equals(name);
+    }
+
+    public void removeElements(String tag) {
+        List<XElement> eles = getElements(tag);
+        for (XElement ele : eles) {
+            remove(ele);
+        }
     }
 
 }
