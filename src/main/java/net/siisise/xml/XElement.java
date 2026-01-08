@@ -27,6 +27,11 @@ public class XElement extends XNode<Element> {
         val.removeAttribute(name);
     }
 
+    /**
+     * getAttribute そのまま.
+     * @param name attribute name
+     * @return attribute
+     */
     public String getAttribute(String name) {
         return val.getAttribute(name);
     }
@@ -87,6 +92,11 @@ public class XElement extends XNode<Element> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * getFirstElement かもしれない
+     * @param name
+     * @return 
+     */
     public XElement getTag(String name) {
         return elementStream().filter(e -> e.getTagName().equals(name)).findFirst().orElse(null);
     }
@@ -112,12 +122,12 @@ public class XElement extends XNode<Element> {
     boolean equals(String ns, String name) {
         return getNamespaceURI().equals(ns) && getLocalName().equals(name);
     }
-
+    
     public void removeElements(String tag) {
         List<XElement> eles = getElements(tag);
         for (XElement ele : eles) {
             remove(ele);
         }
     }
-
+    
 }

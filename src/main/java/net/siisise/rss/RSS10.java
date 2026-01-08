@@ -11,13 +11,14 @@ import org.w3c.dom.Document;
 
 /**
  * RSS 1.0 のテスト
+ * 
  * RDF Site Summary
  * RDF Site Syndication ?
  * Really Simple Syndication ?
  *
  * XML DocumentBuilderFactoryで namespace必須。
- * 
- * channel と item のRDFを持つ 
+ *
+ * channel と item のRDFを持つ
  */
 public class RSS10 extends RSS {
 
@@ -43,23 +44,23 @@ public class RSS10 extends RSS {
         ch.description = (String) ch.map.get("description");
         // dc:date ないこともある
         ch.pubDate = parseDate(xch.getTag(DC, "date"));
-        if ( ch.pubDate == null ) {
+        if (ch.pubDate == null) {
             ch.pubDate = new Date();
         }
-        
-        ch.updateBase = parseDate(xch.getTag(SYN,"updateBase"));
-        XElement xbase = xch.getTag(SYN,"updatePeriod");
-        XElement xtime = xch.getTag(SYN,"updateFrequency");
-        if ( xbase != null && xtime != null ) {
+
+        ch.updateBase = parseDate(xch.getTag(SYN, "updateBase"));
+        XElement xbase = xch.getTag(SYN, "updatePeriod");
+        XElement xtime = xch.getTag(SYN, "updateFrequency");
+        if (xbase != null && xtime != null) {
             int time = Integer.parseInt(xtime.getTextContent().trim());
             String bx = xbase.getTextContent().toLowerCase().trim();
-            if ( bx.equals("hourly") ) {
+            if (bx.equals("hourly")) {
                 ch.ttl = 60 / time;
-            } else if ( bx.equals("weekly") ) {
+            } else if (bx.equals("weekly")) {
                 ch.ttl = 7 * 60 * 24 / time;
-            } else if ( bx.equals("monthly") ) {
+            } else if (bx.equals("monthly")) {
                 ch.ttl = 30 * 60 * 24 / time;
-            } else if ( bx.equals("yearly") ) {
+            } else if (bx.equals("yearly")) {
                 ch.ttl = 360 * 60 * 24 / time;
 //            } else if ( bx.equals("daily") ) {
             } else {
@@ -75,14 +76,14 @@ public class RSS10 extends RSS {
             XElement xitem = rdf.get(key);
             Item item = toItem(xitem);
             item.ch = ch;
-            if ( item.pubDate == null ) {
+            if (item.pubDate == null) {
                 item.pubDate = ch.pubDate;
             }
             newItems.add(item);
         }
         merge(ch.items, newItems);
     }
-    
+
     Item toItem(XElement xml) {
         Item item = new Item();
         item.map = map(xml.getElements());
@@ -95,14 +96,15 @@ public class RSS10 extends RSS {
 
     /**
      * XML要素をMapに
+     *
      * @param eles
-     * @return 
+     * @return
      */
     static Map<String, Object> map(List<XElement> eles) {
         Map map = new HashMap();
         for (XElement ele : eles) {
             // XMLの名前重複はListにする
-            String name = ele.getNodeName();
+            String name = ele.getName();
             Object val;
             if (ele.getElements().isEmpty()) {
                 val = ele.getTextContent();

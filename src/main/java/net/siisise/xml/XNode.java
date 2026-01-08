@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * XML Node
  *
  * @param <N> Node継承型
  */
@@ -26,6 +27,9 @@ public class XNode<N extends Node> {
     }
 
     public static XNode toObj(Node item) {
+        if (item == null) {
+            return null;
+        }
         short nt = item.getNodeType();
 
         switch (nt) {
@@ -38,6 +42,22 @@ public class XNode<N extends Node> {
         }
     }
 
+    /**
+     * null対策
+     *
+     * @param xn XNode
+     * @return Node
+     */
+    public static Node toNode(XNode xn) {
+        return (xn == null) ? null : xn.getNode();
+    }
+
+    /**
+     * List変換.
+     * @param <E>
+     * @param nl XML nodelist
+     * @return Java XNode List
+     */
     public static <E extends XNode> List<E> toList(NodeList nl) {
         int len = nl.getLength();
         List<E> nll = new ArrayList<>(len);
@@ -51,46 +71,84 @@ public class XNode<N extends Node> {
         return val.getNamespaceURI();
     }
 
+    /**
+     * Node Name
+     *
+     * @return node name
+     */
     public String getName() {
         return val.getNodeName();
     }
 
+    /**
+     * Node Name
+     *
+     * @return node name
+     * @deprecated #getName()
+     */
+    @Deprecated
     public String getNodeName() {
         return val.getNodeName();
-    }
-
-    /**
-     * テキストではない
-     *
-     * @return
-     */
-    public String getValue() {
-        return val.getNodeValue();
-    }
-
-    public String getTextContent() {
-        return val.getTextContent();
-    }
-
-    public void setTextContext(String text) {
-        val.setTextContent(text);
     }
 
     public String getLocalName() {
         return val.getLocalName();
     }
 
+    /**
+     * テキストではない
+     *
+     * @return node value
+     */
+    public String getValue() {
+        return val.getNodeValue();
+    }
+
+    /**
+     * textContent
+     * @return text content
+     */
+    public String getTextContent() {
+        return val.getTextContent();
+    }
+
+    public void setTextContent(String text) {
+        val.setTextContent(text);
+    }
+
+    /**
+     * List化 child node
+     * @param <E>
+     * @return child node list
+     */
     public <E extends XNode> List<E> getChildNodes() {
         return toList(val.getChildNodes());
+    }
+
+    /**
+     * 先頭.
+     * @return 先頭Node
+     */
+    public XNode getFirstChild() {
+        return toObj(val.getFirstChild());
+    }
+
+    public XNode getLastChild() {
+        return toObj(val.getLastChild());
     }
 
     public void append(XNode node) {
         val.appendChild(node.getNode());
     }
 
+    /**
+     * 特定位置に追加.
+     * @param index
+     * @param node 
+     */
     public void append(int index, XNode node) {
         NodeList nl = val.getChildNodes();
-        if (nl.getLength() < index) {
+        if (nl.getLength() < index) { // 後ろへ
             val.appendChild(node.val);
         } else {
             Node ref = nl.item(index);
@@ -99,13 +157,18 @@ public class XNode<N extends Node> {
     }
 
     public void insertBefore(XNode newChild, XNode refChild) {
-        val.insertBefore(newChild.getNode(), refChild.getNode());
+        val.insertBefore(newChild.getNode(), toNode(refChild));
     }
 
     public void remove(XNode child) {
         val.removeChild(child.getNode());
     }
 
+    /**
+     * NamedNodeMap を Java Mapに.
+     * 同じ名前の重複には対応不可.
+     * @return Java Map
+     */
     public Map<String, String> getAttributes() {
         Map<String, String> map = new LinkedHashMap();
         NamedNodeMap nm = val.getAttributes();
