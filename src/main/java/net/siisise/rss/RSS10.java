@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.siisise.rdf.RDF;
+import net.siisise.xml.XDocument;
 import net.siisise.xml.XElement;
-import org.w3c.dom.Document;
 
 /**
  * RSS 1.0 のテスト
@@ -32,7 +32,7 @@ public class RSS10 extends RSS {
     }
 
     @Override
-    void read(Channel ch, Document doc) {
+    void read(Channel ch, XDocument doc) {
         RDF rdf = new RDF(doc);
         XElement xch = rdf.getTags("channel").get(0);
         // てきとーにMap化

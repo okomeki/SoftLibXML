@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Locale;
 import javax.xml.parsers.ParserConfigurationException;
 import net.siisise.atom.Atom;
+import net.siisise.xml.XDocument;
 import net.siisise.xml.XElement;
 import net.siisise.xml.XMLIO;
-import net.siisise.xml.XNode;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
@@ -48,12 +47,12 @@ public class RSS {
 
     public Channel read(URI uri) throws ParserConfigurationException, SAXException, IOException {
         Document doc = XMLIO.readXML(uri);
-        return read(doc);
+        return read(new XDocument(doc));
     }
 
     public void read(Channel ch, URI uri) throws ParserConfigurationException, SAXException, IOException {
         Document doc = XMLIO.readXML(uri);
-        read(ch, doc);
+        read(ch, new XDocument(doc));
     }
 
     // ABNFで検証する?
@@ -76,20 +75,19 @@ public class RSS {
      * @param doc RSS /Atom
      * @return 
      */
-    Channel read(Document doc) {
+    Channel read(XDocument doc) {
         Channel ch = new Channel();
         read(ch, doc);
         return ch;
     }
-
+    
     /**
      *
      * @param ch item
      * @param doc RSS / Atom
      */
-    void read(Channel ch, Document doc) {
-        Element ele = doc.getDocumentElement();
-        XElement xdoc = (XElement) XNode.toObj(ele);
+    void read(Channel ch, XDocument doc) {
+        XElement xdoc = doc.getDocumentElement();
         String name = xdoc.getName();
         if (name.equals("rdf:RDF")) {
             // RDF 形式 (RSS 1.0など)

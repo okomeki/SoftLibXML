@@ -3,10 +3,8 @@ package net.siisise.rss;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import net.siisise.xml.XDocument;
 import net.siisise.xml.XElement;
-import net.siisise.xml.XNode;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * https://cyber.harvard.edu/rss/rss.html
@@ -18,9 +16,8 @@ public class RSS20 extends RSS {
     }
 
     @Override
-    void read(Channel ch, Document doc) {
-        Element node = doc.getDocumentElement();
-        XElement xrss = (XElement) XNode.toObj(node);
+    void read(Channel ch, XDocument doc) {
+        XElement xrss = doc.getDocumentElement();
 
         XElement xchannel = xrss.getTag("channel");
         ch.title = xchannel.getTag("title").getTextContent();
